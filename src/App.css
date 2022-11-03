@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.playground {
+  display: grid;
   min-height: 100vh;
+  justify-content: center;
+}
+.container-control {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.container-board {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.winner-label {
+  color: #54b435;
+}
+
+.button {
+  background-color: black;
+  border-color: black;
+}
+.button.button-clear,
+.button.button-outline {
+  background-color: transparent;
+  color: black;
+}
+.button.button-clear {
+  border-color: transparent;
+}
+
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 100; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+.modal-pieces .row {
+  padding: 1rem 0;
+}
+
+.piece-btn {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 1rem;
+  border: solid 2px darkgrey;
+  border-radius: 5px;
+  background-color: #fff;
+  height: auto;
+  margin-bottom: 0;
+  width: 100%;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.piece-btn:hover {
+  background-color: darkgrey;
+  border: solid 2px darkgrey;
 }
