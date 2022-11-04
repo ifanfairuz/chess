@@ -10,6 +10,9 @@ const stockfish = child_process.spawn("stockfish", { stdio: "pipe" });
 stockfish.on("close", () => {
   console.log("close");
 });
+process.on("beforeExit", () => {
+  stockfish.kill();
+});
 
 function stockfishSend(command, grep = "") {
   return new Promise((res) => {
