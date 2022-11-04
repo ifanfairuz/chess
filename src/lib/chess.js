@@ -25,7 +25,6 @@ const ChessRequest = {
 
 export default class Chess extends ChessJS {
   my_color = "w";
-  loading = true;
   kings_position = { w: "e1", b: "e8" };
   check = null;
   winner = null;

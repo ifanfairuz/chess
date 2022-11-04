@@ -24,6 +24,7 @@ function App() {
   const [premove, setPremove] = useState(null);
   const [promotion, setPromotion] = useState(null);
   const [orientation, setOrientation] = useState("white");
+  const [loading, setLoading] = useState(false);
   const [depth, setDepth] = useState(18);
   const square_styles = useMemo(
     () => ({
@@ -58,8 +59,13 @@ function App() {
     });
   };
 
-  const doNext = () => game.next(depth).then((gg) => setGame(gg));
-  // .then(() => setTimeout(doNext, 0));
+  const doNext = () => {
+    setLoading(true);
+    game
+      .next(depth)
+      .then((gg) => setGame(gg))
+      .finally(() => setLoading(false));
+  };
 
   const doMove = (move) => {
     game
@@ -67,7 +73,6 @@ function App() {
       .then((g) => {
         setGame(g);
         if (!game.isMyTurn()) doNext();
-        // doNext();
       })
       .catch(async (err) => {
         if (err.message === "need_promotion") {
@@ -100,9 +105,9 @@ function App() {
         <button className="button" onClick={newGame}>
           New Game
         </button>
-        {game.my_color === "b" && !game.lastmove && (
+        {!game.isMyTurn() && !loading && (
           <button className="button" onClick={doNext}>
-            Start
+            Move
           </button>
         )}
       </div>
