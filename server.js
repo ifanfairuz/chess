@@ -38,8 +38,9 @@ app.use(express.static("build"));
 
 app.post("/find", (req, res) => {
   const t = Date.now();
+  const depth = req.body.depth || 18;
   stockfishSend("position fen " + req.body.fen);
-  stockfishSend("go depth " + 18, "bestmove ")
+  stockfishSend("go depth " + depth, "bestmove ")
     .then((msg) => {
       res.send(msg.replace("bestmove ", "").substring(0, 5).trim());
       LastHitTime.set(Date.now() - t);

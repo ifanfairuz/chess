@@ -23,6 +23,9 @@
   background-color: black;
   border-color: black;
 }
+.button.block {
+  width: 100%;
+}
 .button.button-clear,
 .button.button-outline {
   background-color: transparent;
@@ -32,6 +35,31 @@
   border-color: transparent;
 }
 
+.button-small {
+  font-size: 0.8rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  padding: 0 1.5rem;
+}
+
+input[type="color"]:focus,
+input[type="date"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="email"]:focus,
+input[type="month"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="week"]:focus,
+input:not([type]):focus,
+textarea:focus,
+select:focus {
+  border-color: black;
+}
 .modal {
   position: fixed; /* Stay in place */
   z-index: 100; /* Sit on top */
@@ -70,4 +98,36 @@
 .piece-btn:hover {
   background-color: darkgrey;
   border: solid 2px darkgrey;
+}
+
+.controls {
+  display: flex !important;
+  align-items: center !important;
+}
+.control {
+  flex: 1;
+  margin-bottom: 0;
+  padding: 0 1rem;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.control > svg {
+  margin-bottom: 4px;
+}
+.control:first-child {
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+}
+.control:last-child {
+  border-top-right-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+}
+
+.fen {
+  margin-top: 1rem;
+}
+.hidden {
+  display: none !important;
 }
