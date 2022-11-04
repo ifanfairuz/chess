@@ -2,6 +2,7 @@ const child_process = require("child_process");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const io = require("@pm2/io");
 const app = express();
 const port = 3000;
 
@@ -29,16 +30,19 @@ function stockfishSend(command, grep = "") {
   });
 }
 
+const LastHitTime = io.metric({ name: "Last Hit Time", unit: "ms" });
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("build"));
 
 app.post("/find", (req, res) => {
-  const time = 1000 * 2;
+  const t = Date.now();
   stockfishSend("position fen " + req.body.fen);
-  stockfishSend("go movetime " + time, "bestmove ")
+  stockfishSend("go depth " + 18, "bestmove ")
     .then((msg) => {
       res.send(msg.replace("bestmove ", "").substring(0, 5).trim());
+      LastHitTime.set(Date.now() - t);
     })
     .catch((err) => console.error(err));
 });
