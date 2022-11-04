@@ -8,6 +8,7 @@ module.exports = {
       log_file: "./logs/<app name>-log.log",
       time: true,
       autorestart: true,
+      exec_mode: "fork",
     },
   ],
 };
