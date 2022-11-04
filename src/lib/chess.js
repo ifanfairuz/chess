@@ -2,8 +2,8 @@ import axios from "axios";
 import { Chess as ChessJS } from "chess.js";
 
 const ChessRequest = {
-  find(fen) {
-    const data = JSON.stringify({ fen });
+  find(fen, depth = 18) {
+    const data = JSON.stringify({ fen, depth });
     const config = {
       method: "post",
       url: "/find",
@@ -112,11 +112,13 @@ export default class Chess extends ChessJS {
     return this.isMyTurn() && this.isMyPiece(piece);
   }
 
-  next() {
+  next(depth) {
     if (this.gameover) {
       return Promise.reject();
     } else {
-      return ChessRequest.find(this.position).then((move) => this.doMove(move));
+      return ChessRequest.find(this.position, depth).then((move) =>
+        this.doMove(move)
+      );
     }
   }
 }

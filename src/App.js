@@ -58,7 +58,7 @@ function App() {
     });
   };
 
-  const doNext = () => game.next().then((gg) => setGame(gg));
+  const doNext = () => game.next(depth).then((gg) => setGame(gg));
   // .then(() => setTimeout(doNext, 0));
 
   const doMove = (move) => {
