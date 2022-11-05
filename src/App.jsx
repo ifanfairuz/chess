@@ -77,6 +77,8 @@ function App() {
   };
 
   const selectColor = (c) => {
+    setPremove(null);
+    setPromotion(null);
     setGame((g) => g.setMyColor(c));
   };
 
