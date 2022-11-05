@@ -26,6 +26,9 @@
 .button.block {
   width: 100%;
 }
+.button.fluid {
+  padding: 0 0;
+}
 .button.button-clear,
 .button.button-outline {
   background-color: transparent;
@@ -35,7 +38,7 @@
   border-color: transparent;
 }
 
-.button-small {
+.button.button-small {
   font-size: 0.8rem;
   height: 2.8rem;
   line-height: 2.8rem;

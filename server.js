@@ -33,20 +33,23 @@ function stockfishSend(command, grep = "") {
   });
 }
 
-const LastHitTime = io.metric({ name: "Last Hit Time", unit: "ms" });
+const LastHitTime = io.metric({ name: "Last Hit Time", unit: "ms", value: 0 });
+const MaxHitTime = io.metric({ name: "Max Hit Time", unit: "ms", value: 0 });
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("build"));
 
 app.post("/find", (req, res) => {
-  const t = Date.now();
+  const start = Date.now();
   const depth = req.body.depth || 18;
   stockfishSend("position fen " + req.body.fen);
   stockfishSend("go depth " + depth, "bestmove ")
     .then((msg) => {
       res.send(msg.replace("bestmove ", "").substring(0, 5).trim());
-      LastHitTime.set(Date.now() - t);
+      const time = Date.now() - start;
+      LastHitTime.set(time);
+      if (MaxHitTime.val() < time) MaxHitTime.set(time);
     })
     .catch((err) => console.error(err));
 });

@@ -120,4 +120,13 @@ export default class Chess extends ChessJS {
       );
     }
   }
+
+  undo() {
+    if (this.gameover) {
+      return Promise.reject();
+    } else {
+      super.undo();
+      return Promise.resolve(Object.create(this));
+    }
+  }
 }
