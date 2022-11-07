@@ -127,7 +127,7 @@ export default class Chess extends ChessJS {
     } else {
       const mv = super.undo();
       if (mv) {
-        if (mv.piece === "k") this.setKingPosition(mv.color, mv.to);
+        if (mv.piece === "k") this.setKingPosition(mv.color, mv.from);
         this._checkCheck();
         this._checkGameOver();
       }
