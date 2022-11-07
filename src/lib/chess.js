@@ -125,7 +125,12 @@ export default class Chess extends ChessJS {
     if (this.gameover) {
       return Promise.reject();
     } else {
-      super.undo();
+      const mv = super.undo();
+      if (mv) {
+        if (mv.piece === "k") this.setKingPosition(mv.color, mv.to);
+        this._checkCheck();
+        this._checkGameOver();
+      }
       return Promise.resolve(Object.create(this));
     }
   }
