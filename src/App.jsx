@@ -15,6 +15,9 @@ const styles = {
   drop_premove: {
     opacity: "0.4",
   },
+  can_move_capture: {
+    border: "solid 5px rgba(84, 180, 53, 0.6)",
+  },
   can_move_dark: {
     border: "solid 25px rgb(181, 136, 99)",
     borderRadius: "100%",
@@ -45,24 +48,33 @@ function App() {
   const [depth, setDepth] = useState(18);
   const [premoves, setPremoves] = useState({});
   const square_styles = useMemo(() => {
-    return {
+    let style = {
       [game.lastmove ? game.lastmove.from : null]: styles.from_last,
       [game.lastmove ? game.lastmove.to : null]: styles.to_last,
       ...premoves,
       [game.check ? game.kings_position[game.check] : null]: styles.check,
       [premove && premove.from ? premove.from : null]: styles.premove,
-      [premove && premove.to ? premove.to : null]: styles.target_premove,
     };
+    if (premove && premove.to && premove.to in style) {
+      style[premove.to] = { ...style[premove.to], ...styles.target_premove };
+    }
+    return style;
   }, [premove, premoves, game]);
 
   useEffect(() => {
     if (premove && premove.from) {
-      const moves = game.moves({ square: premove.from }).map((square) => {
-        const color = game.squareColor(square);
-        if (color === "dark") return [square, styles.can_move_dark];
-        if (color === "light") return [square, styles.can_move_light];
-        return [null, null];
-      });
+      const moves = game
+        .moves({ square: premove.from, verbose: true })
+        .map(({ to: square, flags }) => {
+          const color = game.squareColor(square);
+          if (flags === "c") {
+            return [square, styles.can_move_capture];
+          } else {
+            if (color === "dark") return [square, styles.can_move_dark];
+            else if (color === "light") return [square, styles.can_move_light];
+          }
+          return [null, null];
+        });
       setPremoves(Object.fromEntries(moves));
     } else {
       setPremoves([]);
