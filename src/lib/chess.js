@@ -1,6 +1,14 @@
 import axios from "axios";
 import { Chess as ChessJS } from "chess.js";
 
+function uciToMove(uci) {
+  return {
+    from: uci.substring(0, 2),
+    to: uci.substring(2, 4),
+    promotion: uci.length > 4 ? uci.charAt(uci.length - 1) : undefined,
+  };
+}
+
 const ChessRequest = {
   find(fen, depth = 18) {
     const data = JSON.stringify({ fen, depth });
@@ -12,14 +20,7 @@ const ChessRequest = {
       },
       data: data,
     };
-    return axios(config).then((response) => {
-      const mv = response.data;
-      return {
-        from: mv.substring(0, 2),
-        to: mv.substring(2, 4),
-        promotion: mv.length > 4 ? mv.charAt(mv.length - 1) : undefined,
-      };
-    });
+    return axios(config).then((res) => res.data);
   },
 };
 
@@ -80,7 +81,8 @@ export default class Chess extends ChessJS {
     return false;
   }
 
-  async doMove(move) {
+  async doMove(param) {
+    const move = typeof param === "string" ? uciToMove(param) : param;
     if (this.gameover) return;
     if (this._needPromotionMove(move)) throw new Error("need_promotion");
 

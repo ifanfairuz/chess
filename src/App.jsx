@@ -115,12 +115,12 @@ function App() {
       .finally(() => setLoading(false));
   };
 
-  const doMove = (move) => {
+  const doMove = (move, withNext = true) => {
     game
       .doMove(move)
       .then((g) => {
         setGame(g);
-        if (!game.isMyTurn()) doNext();
+        if (!game.isMyTurn() && withNext) doNext();
       })
       .catch(async (err) => {
         if (err.message === "need_promotion") {
@@ -166,6 +166,10 @@ function App() {
       }
     }
   };
+
+  useEffect(() => {
+    window.CHESSAPI = { move: (...args) => doMove(...args), next: doNext };
+  }, []);
 
   return (
     <main className="container playground">
