@@ -1,6 +1,40 @@
 import axios from "axios";
 import { Chess as ChessJS } from "chess.js";
 
+export const styles = {
+  premove: {
+    backgroundColor: "rgba(84, 180, 53, 0.6)",
+  },
+  target_premove: {
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
+  },
+  drop_premove: {
+    opacity: "0.4",
+  },
+  can_move_capture: {
+    border: "solid 5px rgba(84, 180, 53, 0.6)",
+  },
+  can_move_dark: {
+    border: "solid 25px rgb(181, 136, 99)",
+    borderRadius: "100%",
+    backgroundColor: "rgba(84, 180, 53, 0.6)",
+  },
+  can_move_light: {
+    border: "solid 25px rgb(240, 217, 181)",
+    borderRadius: "100%",
+    backgroundColor: "rgba(84, 180, 53, 0.6)",
+  },
+  from_last: {
+    backgroundColor: "rgba(84, 180, 53, 0.3)",
+  },
+  to_last: {
+    backgroundColor: "rgba(84, 180, 53, 0.5)",
+  },
+  check: {
+    backgroundColor: "rgba(224, 20, 76, 0.5)",
+  },
+};
+
 function uciToMove(uci) {
   return {
     from: uci.substring(0, 2),
@@ -96,6 +130,11 @@ export default class Chess extends ChessJS {
     return Promise.reject();
   }
 
+  isTurnPieceOnSquare(square) {
+    const piece = this.get(square);
+    return piece && piece.color === this.turn();
+  }
+
   isMyPieceOnSquare(square) {
     const piece = this.get(square);
     return piece && piece.color === this.my_color;
@@ -111,6 +150,10 @@ export default class Chess extends ChessJS {
 
   canDragPiece(piece) {
     return this.isMyTurn() && this.isMyPiece(piece);
+  }
+
+  canDragPieceTurn(piece) {
+    return this.turn() === piece.charAt(0);
   }
 
   next(depth) {

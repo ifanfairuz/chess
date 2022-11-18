@@ -63,6 +63,31 @@ textarea:focus,
 select:focus {
   border-color: black;
 }
+.input-black {
+  background-color: black !important;
+  color: white;
+}
+.input-small {
+  max-width: 130px;
+}
+input[type="color"]:focus.input-black,
+input[type="date"]:focus.input-black,
+input[type="datetime"]:focus.input-black,
+input[type="datetime-local"]:focus.input-black,
+input[type="email"]:focus.input-black,
+input[type="month"]:focus.input-black,
+input[type="number"]:focus.input-black,
+input[type="password"]:focus.input-black,
+input[type="search"]:focus.input-black,
+input[type="tel"]:focus.input-black,
+input[type="text"]:focus.input-black,
+input[type="url"]:focus.input-black,
+input[type="week"]:focus.input-black,
+input:not([type]):focus.input-black,
+textarea:focus.input-black,
+select:focus.input-black {
+  border-color: whitesmoke;
+}
 .modal {
   position: fixed; /* Stay in place */
   z-index: 100; /* Sit on top */
