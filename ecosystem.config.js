@@ -3,12 +3,12 @@ module.exports = {
     {
       name: "chess",
       script: "./server.js",
-      instances: 1,
+      instances: "max",
       error_file: "./logs/chess-error.log",
       log_file: "./logs/chess-log.log",
       time: true,
       autorestart: true,
-      exec_mode: "fork",
+      exec_mode: "cluster",
     },
   ],
 };
