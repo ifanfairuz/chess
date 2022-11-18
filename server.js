@@ -59,6 +59,6 @@ app.listen(port, () => {
   console.log(`Stockfish API listening on port ${port}`);
   setTimeout(() => {
     stockfishSend("setoption name Hash value 2048");
-    stockfishSend("setoption name Threads value 8");
+    stockfishSend("setoption name Threads value 4");
   }, 1000);
 });
