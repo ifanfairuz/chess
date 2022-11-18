@@ -9,6 +9,7 @@ const port = 3000;
 const stockfish = child_process.spawn("stockfish", { stdio: "pipe" });
 stockfish.on("close", () => {
   console.log("close");
+  process.kill();
 });
 process.on("beforeExit", () => {
   stockfish.kill();
