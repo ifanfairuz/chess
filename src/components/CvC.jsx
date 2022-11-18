@@ -65,15 +65,17 @@ function CvC() {
     setStarted(true);
     const start = Date.now();
     game.next(game.isMyTurn() ? depthW : depthB).then((g) => {
-      if (g.check || g.lastmove.captured) audio.capture.play();
-      else audio.move.play();
       const timeout = Date.now() - start;
       if (timeout < delay)
         setTimeout(() => {
+          if (g.check || g.lastmove.captured) audio.capture.play();
+          else audio.move.play();
           setGame(g);
           doNext();
         }, delay - timeout);
       else {
+        if (g.check || g.lastmove.captured) audio.capture.play();
+        else audio.move.play();
         setGame(g);
         doNext();
       }
