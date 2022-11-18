@@ -69,6 +69,7 @@ function CvC() {
       else audio.move.play();
       setGame(g);
       const timeout = Date.now() - start;
+      console.log(timeout, delay);
       if (timeout < delay) setTimeout(doNext, timeout - delay);
       else doNext();
     });
