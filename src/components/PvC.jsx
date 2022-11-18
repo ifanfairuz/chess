@@ -83,7 +83,11 @@ function PvC() {
     setLoading(true);
     game
       .next(depth)
-      .then((gg) => setGame(gg))
+      .then((g) => {
+        if (g.check || g.lastmove.captured) audio.capture.play();
+        else audio.move.play();
+        setGame(g);
+      })
       .finally(() => setLoading(false));
   };
 

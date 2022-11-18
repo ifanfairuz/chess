@@ -64,8 +64,10 @@ function CvC() {
   const doNext = () => {
     setStarted(true);
     const start = Date.now();
-    game.next(game.isMyTurn() ? depthW : depthB).then((gg) => {
-      setGame(gg);
+    game.next(game.isMyTurn() ? depthW : depthB).then((g) => {
+      if (g.check || g.lastmove.captured) audio.capture.play();
+      else audio.move.play();
+      setGame(g);
       const timeout = Date.now() - start - delay * 10;
       if (timeout > 0) setTimeout(doNext, timeout);
       else doNext();
