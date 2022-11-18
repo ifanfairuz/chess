@@ -67,10 +67,16 @@ function CvC() {
     game.next(game.isMyTurn() ? depthW : depthB).then((g) => {
       if (g.check || g.lastmove.captured) audio.capture.play();
       else audio.move.play();
-      setGame(g);
       const timeout = Date.now() - start;
-      if (timeout < delay) setTimeout(doNext, delay - timeout);
-      else doNext();
+      if (timeout < delay)
+        setTimeout(() => {
+          setGame(g);
+          doNext();
+        }, delay - timeout);
+      else {
+        setGame(g);
+        doNext();
+      }
     });
   };
 
