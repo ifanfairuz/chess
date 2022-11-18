@@ -68,8 +68,9 @@ function CvC() {
       if (g.check || g.lastmove.captured) audio.capture.play();
       else audio.move.play();
       setGame(g);
-      const timeout = Date.now() - start - delay * 10;
-      if (timeout > 0) setTimeout(doNext, timeout);
+      const timeout = Date.now() - start;
+      console.log(timeout);
+      if (timeout < delay) setTimeout(doNext, timeout - delay * 10);
       else doNext();
     });
   };
