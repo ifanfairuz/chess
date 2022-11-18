@@ -64,22 +64,27 @@ function CvC() {
   const doNext = () => {
     setStarted(true);
     const start = Date.now();
-    game.next(game.isMyTurn() ? depthW : depthB).then((g) => {
-      const timeout = Date.now() - start;
-      if (timeout < delay)
-        setTimeout(() => {
+    game
+      .next(game.isMyTurn() ? depthW : depthB)
+      .then((g) => {
+        const timeout = Date.now() - start;
+        if (timeout < delay)
+          setTimeout(() => {
+            if (g.check || g.lastmove.captured) audio.capture.play();
+            else audio.move.play();
+            setGame(g);
+            doNext();
+          }, delay - timeout);
+        else {
           if (g.check || g.lastmove.captured) audio.capture.play();
           else audio.move.play();
           setGame(g);
           doNext();
-        }, delay - timeout);
-      else {
-        if (g.check || g.lastmove.captured) audio.capture.play();
-        else audio.move.play();
-        setGame(g);
-        doNext();
-      }
-    });
+        }
+      })
+      .catch(() => {
+        setStarted(false);
+      });
   };
 
   const doMove = (move) => {
