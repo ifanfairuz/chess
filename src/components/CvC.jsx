@@ -9,7 +9,7 @@ function CvC() {
   const [premove, setPremove] = useState(null);
   const [promotion, setPromotion] = useState(null);
   const [orientation, setOrientation] = useState("white");
-  const [delay, setDelay] = useState(150);
+  const [delay, setDelay] = useState(1500);
   const [depthW, setDepthW] = useState(18);
   const [depthB, setDepthB] = useState(18);
   const [premoves, setPremoves] = useState({});
@@ -69,8 +69,7 @@ function CvC() {
       else audio.move.play();
       setGame(g);
       const timeout = Date.now() - start;
-      console.log(timeout);
-      if (timeout < delay) setTimeout(doNext, timeout - delay * 10);
+      if (timeout < delay) setTimeout(doNext, timeout - delay);
       else doNext();
     });
   };
@@ -163,8 +162,8 @@ function CvC() {
         <div className="column">
           <input
             type="number"
-            min="100"
-            step="10"
+            min="1000"
+            step="100"
             className="input-small"
             placeholder="delay (ms)"
             value={delay}
