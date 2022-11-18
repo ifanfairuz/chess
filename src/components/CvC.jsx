@@ -9,7 +9,7 @@ function CvC() {
   const [premove, setPremove] = useState(null);
   const [promotion, setPromotion] = useState(null);
   const [orientation, setOrientation] = useState("white");
-  const [delay, setDelay] = useState(1500);
+  const [delay, setDelay] = useState(1000);
   const [depthW, setDepthW] = useState(18);
   const [depthB, setDepthB] = useState(18);
   const [premoves, setPremoves] = useState({});
